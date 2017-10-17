@@ -1,3 +1,7 @@
+/*
+Find the value of x^y in lgn time
+*/
+
 #include<iostream>
 using namespace std;
 
