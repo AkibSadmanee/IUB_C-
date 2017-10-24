@@ -3,7 +3,7 @@ This program works fine for 1 digit numbers.
 As counting sort is used just as a tool to complete "radix-sort"
 we dont need to sort more than 1 digit number with counting sort.
 
-The algo is simple.. We build a frequency array out of our sample array.
+The procedure is simple.. We build a frequency array out of our sample array.
 then we add (i)th  and (i-1)th values of the frequency array and store them in (i)th position
 then we empty the frequency array by putting each number in its correct belonging position in B array
 that creates a sorted B array,
