@@ -1,8 +1,10 @@
 /*
-This file contains two sorting procedures.
+This file contains 4 sorting procedures.
 1. Insertion Sort
 2. Merge Sort
 3. Bubble Sort
+4. Quick Sort
+
 All are programed to sort in "Ascending order".
 This code contains a lot of console prints to ensure user sophistication.
 So the program run time may be slower than your expectations.
