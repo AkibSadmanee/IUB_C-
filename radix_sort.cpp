@@ -57,12 +57,13 @@ void display_array(int* arr, int Size, int high)
 	cout<<endl;
 }
 
+
 int get_ith_digit(int number, int pos){
     //takes 2 parameters : 1st- number  2nd-position
     //this function finds the digit in the given number
     //that is in the position of 2nd parameter
-    int position = pow(10,pos-1);
-    return (number/position) % 10; 
+    for(int x = 1; x < pos; x++) number /= 10;
+    return number % 10; 
 }
 
 
