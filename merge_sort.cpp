@@ -3,11 +3,13 @@ using namespace std;
 
 void make_array(int* &arr, int s);
 void populate_array(int* arr, int s, int h, int l);
-void display_array(int* arr, int s, int h);
+void display_array(int* arr, int Size);
+int get_max(int *arr,int Size);
 int num_digit(int number);
 
 void merge(int* A, int i, int j, int k);
-void merge_sort(int* A, int left, int right);
+void merge_sort_core(int* A, int left, int right);
+void merge_sort(int* A, int s);
 
 int main()
 {
@@ -20,10 +22,10 @@ int main()
     populate_array(arr,Size,high,low);
 
     cout<<"Sample: "<<endl;
-    display_array(arr,Size,high);
-    merge_sort(arr,0,Size-1);
+    display_array(arr,Size);
+    merge_sort(arr,Size);
     cout<<endl<<endl<<"Sorted: "<<endl;
-    display_array(arr,Size,high);
+    display_array(arr,Size);
     return 0;
 }
 
@@ -47,11 +49,20 @@ int num_digit(int number)
     return 1+ num_digit(number/10);
 }
 
-void display_array(int* arr, int Size, int high)
+int get_max(int *arr,int Size){
+    int mx = arr[0];
+    for(int i = 1 ; i < Size; i++){
+        if(arr[i] > mx) mx = arr[i];
+    }
+    return mx;
+}
+
+void display_array(int* arr, int Size)
 {
+    int high = get_max(arr,Size);
     for(int i = 0 ; i < Size; i++)
     {
-        if(i % 5 == 0) cout<<endl;
+        if(i % 5 == 0 && i != 0) cout<<endl;
         cout<<setw(num_digit(high) + 3)<<arr[i];
     }
     cout<<endl;
@@ -110,7 +121,7 @@ void merge(int* Arr, int left, int mid, int right)
 
 }
 
-void merge_sort(int* arr, int left, int right)
+void merge_sort_core(int* arr, int left, int right)
 {
     if(right > left)
     {
@@ -120,4 +131,9 @@ void merge_sort(int* arr, int left, int right)
         merge(arr,left,mid,right);
 
     }
+}
+
+void merge_sort(int* A, int s)
+{
+    merge_sort_core(A,0,s-1);
 }
