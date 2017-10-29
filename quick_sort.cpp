@@ -5,12 +5,14 @@ using namespace std;
 
 void make_array(int* &A,int s);
 void populate_array(int *A,int s, int h, int l);
-void display_array(int *A, int s, int h);
-int num_dig(int);
+int get_max(int *arr,int Size);
+void display_array(int* arr, int Size);
+int num_digit(int);
 
 int pivot(int *A, int l, int r);
 void swap (int &x, int &y);
-void quick_sort(int *A, int l, int r);
+void quick_sort_core(int *A, int l, int r);
+void quick_sort(int* A, int s);
 
 int main()
 {
@@ -23,10 +25,10 @@ int main()
     populate_array(arr,Size,high,low);
 
     cout<<"Sample: "<<endl;
-    display_array(arr,Size,high);
-    quick_sort(arr,0,Size-1);
+    display_array(arr,Size);
+    quick_sort(arr,Size);
     cout<<endl<<endl<<"Sorted: "<<endl;
-    display_array(arr,Size,high);
+    display_array(arr,Size);
     return 0;
 }
 
@@ -39,18 +41,28 @@ void populate_array(int *A,int s, int h, int l){
 		A[i]=l+rand()%(h-l+1);
 	}
 }
-
-void display_array(int *A, int s, int h){
-	for(int i=0;i<s;++i){
-		if(i%5==0)cout<<endl;
-		cout<<setw(num_dig(h)+1)<<A[i];
-	}
-	cout<<endl<<endl;
+int get_max(int *arr,int Size){
+    int mx = arr[0];
+    for(int i = 1 ; i < Size; i++){
+        if(arr[i] > mx) mx = arr[i];
+    }
+    return mx;
 }
 
-int num_dig(int n){
+void display_array(int* arr, int Size)
+{
+    int high = get_max(arr,Size);
+    for(int i = 0 ; i < Size; i++)
+    {
+        if(i % 5 == 0 && i != 0) cout<<endl;
+        cout<<setw(num_digit(high) + 3)<<arr[i];
+    }
+	cout<<endl;
+}
+
+int num_digit(int n){
 	if(n<10)return 1;
-	return 1+num_dig(n/10);
+	return 1+num_digit(n/10);
 }
 
 int pivot(int *arr, int left, int right){
@@ -73,10 +85,18 @@ void swap (int &x, int &y){
 }
 
 
-void quick_sort(int *A, int l, int r){
+void quick_sort_core(int *A, int l, int r){
     if(l<r){
         int p = pivot(A,l,r);
-        quick_sort(A,l,p-1);
-        quick_sort(A,p+1,r);
+        quick_sort_core(A,l,p-1);
+        quick_sort_core(A,p+1,r);
     }
 }
+
+void quick_sort(int* A, int s)
+{
+    // wrapper function for easier call
+    quick_sort_core(A,0,s-1);
+}
+
+
