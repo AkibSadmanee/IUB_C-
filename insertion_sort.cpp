@@ -5,7 +5,8 @@ using namespace std;
 void make_array(int* &arr, int s);
 void populate_array_rand(int* arr, int s, int h, int l);
 void populate_array_user(int* arr, int s);
-void display_array(int* arr, int s, int h);
+int get_max(int *arr,int Size);
+void display_array(int* arr, int s);
 int num_digit(int number);
 
 void insertion_sort(int* arr, int Size);
@@ -35,7 +36,7 @@ int main()
         cout<<"Enter Highest Limit of range: ";    //higher range of random number
         cin>> high;
 
-        cout<<"Enter Loest Limit of range: ";   //lower range of random number
+        cout<<"Enter Lowest Limit of range: ";   //lower range of random number
         cin>> low;
 
         populate_array_rand(arr, Size,high,low);
@@ -46,7 +47,7 @@ int main()
 
     //Displays sample array
     cout<<"Array: "<<endl;
-    display_array(arr,Size,high);
+    display_array(arr,Size);
 
     //Executes sorting algorithm
     insertion_sort(arr,Size);
@@ -55,7 +56,8 @@ int main()
 
     //prints sorted array
     cout<<"Sorted: "<<endl;
-    display_array(arr,Size,high);
+    display_array(arr,Size);
+    cout<<endl;
 
     return 0;
 }
@@ -95,11 +97,20 @@ int num_digit(int number)
     return 1+ num_digit(number/10);
 }
 
-void display_array(int* arr, int Size, int high)
+int get_max(int *arr,int Size){
+    int mx = arr[0];
+    for(int i = 1 ; i < Size; i++){
+        if(arr[i] > mx) mx = arr[i];
+    }
+    return mx;
+}
+
+void display_array(int* arr, int Size)
 {
+    int high = get_max(arr,Size);
     for(int i = 0 ; i < Size; i++)
     {
-        if(i % 9 == 0 && i != 0) cout<<endl;
+        if(i % 5 == 0 && i != 0) cout<<endl;
         cout<<setw(num_digit(high) + 3)<<arr[i];
     }
 }
