@@ -135,5 +135,6 @@ void merge_sort_core(int* arr, int left, int right)
 
 void merge_sort(int* A, int s)
 {
+    //wrapper function for easier call 
     merge_sort_core(A,0,s-1);
 }
