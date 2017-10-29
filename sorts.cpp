@@ -17,17 +17,21 @@ using namespace std;
 void make_array(int* &arr, int Size);
 void populate_array(int* arr, int Size, int high, int low);
 int num_digit(int number);
-void display_array(int* arr, int Size, int high);
+int get_max(int *arr,int Size);
+void display_array(int* arr, int Size);
+
 
 void bubble_sort(int* arr, int Size);
 void insertion_sort(int* arr, int Size);
 
-void merge_sort(int* arr,int left,int right);
 void merge(int* arr, int left, int mid, int right);
+void merge_sort_core(int* arr,int left,int right);
+void merge_sort(int* A, int s);
 
 int pivot(int *A, int l, int r);
 void swap (int &x, int &y);
-void quick_sort(int *A, int l, int r);
+void quick_sort_core(int *A, int l, int r);
+void quick_sort(int* A, int s);
 
 int main()
 {
@@ -40,7 +44,7 @@ int main()
     make_array(arr,Size);
     populate_array(arr,Size,high,low);
     cout<<endl<<"Sample Array:"<<endl;
-    display_array(arr,Size,high);
+    display_array(arr,Size);
 
     char choice;
     cout<<endl<<"Choose Sorting Algorithm: "<<endl;
@@ -56,13 +60,13 @@ int main()
         insertion_sort(arr,Size);
 
     else if(choice == '2')  //Merge Sort call
-        merge_sort(arr,0,Size-1);
+        merge_sort(arr,Size);
 
     else if(choice == '3')  //Bubble Sort call
         bubble_sort(arr,Size);
 
     else if(choice == '4')  //Quick Sort call
-        quick_sort(arr,0,Size-1);
+        quick_sort(arr,Size);
 
     else
     {
@@ -72,7 +76,7 @@ int main()
     }
 
     cout<<endl<<"Sorted Array:"<<endl;
-    display_array(arr,Size,high);
+    display_array(arr,Size);
 
 
     return 0;
@@ -103,14 +107,22 @@ int num_digit(int number)
     return 1 + num_digit(number/10);
 }
 
-void display_array(int* arr, int Size, int high)
+
+int get_max(int *arr,int Size){
+    int mx = arr[0];
+    for(int i = 1 ; i < Size; i++){
+        if(arr[i] > mx) mx = arr[i];
+    }
+    return mx;
+}
+
+
+void display_array(int* arr, int Size)
 {
-    //this function depends on num_digit(int)
-    //to use setw you need to add #include<iomanip>
-    //Displays the array
+    int high = get_max(arr,Size);
     for(int i = 0 ; i < Size; i++)
     {
-        if(i % 5 == 0) cout<<endl;
+        if(i % 9 == 0 && i != 0) cout<<endl;
         cout<<setw(num_digit(high) + 3)<<arr[i];
     }
     cout<<endl;
@@ -132,14 +144,14 @@ void insertion_sort(int* arr, int Size)
     }
 }
 
-void merge_sort(int* arr,int left,int right)
+void merge_sort_core(int* arr,int left,int right)
 {
     //this function depends on merge(int* ,int, int, int)
     if(right > left)
     {
         int mid = (left+right)/2;
-        merge_sort(arr,left,mid);
-        merge_sort(arr,mid+1,right);
+        merge_sort_core(arr,left,mid);
+        merge_sort_core(arr,mid+1,right);
         merge(arr,left,mid,right);
     }
 }
@@ -259,10 +271,23 @@ void swap (int &x, int &y){
 }
 
 
-void quick_sort(int *A, int left, int right){
+void quick_sort_core(int *A, int left, int right){
     if(left<right){    //base case is when l >= r
         int p = pivot(A,left,right);
-        quick_sort(A,left,p-1);
-        quick_sort(A,p+1,right);
+        quick_sort_core(A,left,p-1);
+        quick_sort_core(A,p+1,right);
     }
+}
+
+void quick_sort(int* A, int s)
+{
+    // wrapper function for easier call
+    quick_sort_core(A,0,s-1);
+}
+
+
+void merge_sort(int* A, int s)
+{
+    // wrapper function for easier call
+    merge_sort_core(A,0,s-1);
 }
