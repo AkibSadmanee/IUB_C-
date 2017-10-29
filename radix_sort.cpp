@@ -8,6 +8,7 @@ int num_digit(int number);
 void display_array(int* arr, int Size, int high);
 
 void counting_sort(int *arr, int Size, int);
+int power(int x, int n);
 int get_max(int *arr,int Size);
 int get_ith_digit(int number, int pos);
 void radix_sort(int *arr, int Size);
@@ -57,13 +58,22 @@ void display_array(int* arr, int Size, int high)
 	cout<<endl;
 }
 
+int power(int x, int n){
+    //calculates power in O(lgn)
+
+    if(n == 1) return x;    //base case
+    int temp =  power(x, n/2);
+    if(n % 2 == 0)return temp * temp; //for even powers
+    else return x*temp*temp;    //for odd powers
+}
 
 int get_ith_digit(int number, int pos){
     //takes 2 parameters : 1st- number  2nd-position
     //this function finds the digit in the given number
     //that is in the position of 2nd parameter
-    for(int x = 1; x < pos; x++) number /= 10;
-    return number % 10; 
+    
+    int x = power(10,pos);
+    return (number/x) % 10; 
 }
 
 
