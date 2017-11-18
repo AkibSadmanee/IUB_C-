@@ -1,3 +1,7 @@
+/*
+Find the shortest path if exists in an undirected graph using Dijkstra's algorithm.
+*/
+
 #include<iostream>
 #include<ctime>    //time()
 #include<cstdlib>  //srand()
