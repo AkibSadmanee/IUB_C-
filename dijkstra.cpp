@@ -100,7 +100,7 @@ public:
 
 
 				else{
-				    //populate with random value and mirror
+				    //populate with random value and mirror (as Undireced graph)
 		                    graph[i][j] = low + rand() % (high - low +1);
                 		    graph[j][i] = graph[i][j];
 				}
